@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oh My 붕붕</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            padding: 30px 80px;
+            background-color: #f0f4f8;
+            color: #333;
+        }
+
+        h2 {
+            color: #2c3e50;
+            text-align: center;
+        }
+
+        form {
+            max-width: 500px;
+            margin: 30px auto;
+            background-color: #ffffff;
+            padding: 30px 30px 15px 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        div {
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: inline-block;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        input[type="text"],
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+
+        input[type="time"],
+        select {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 8px;
+            font-size: 14px;
+            transition: border-color 0.3s;
+        }
+
+        input[name="start"],
+        input[name="end"],
+        select {
+            width: 46%;
+        }
+
+        input[name="alarm"],
+        select {
+            width: 20%;
+            text-align: right;
+        }
+
+        input[type="text"]:focus,
+        input[type="time"]:focus,
+        select:focus {
+            border-color: #3498db;
+            outline: none;
+        }
+
+        #btn-div{
+            display: flex;
+            justify-content: center;
+            margin-top: 50px;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px 0px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #2980b9;
+        }
+
+        span {
+            padding: 0px 5px;
+            font-size: 14px;
+        }
+    </style>
+</head>
+<body>
+    <h2>🚌 버스 알림 설정하기 🚌</h2>
+    
+    <form>
+        <div> 
+            <label for="stop">정류소 검색하기</label><br>
+            <input type="text" id="searchStop" name="stop" placeholder="버스 정류소를 입력하세요">
+        </div>
+        <div>
+            <label for="bus">버스 노선 검색하기</label><br>
+            <input type="text" id="searchBus" name="bus" placeholder="버스 번호를 입력하세요">
+        </div>
+        <div>
+            <label for="busTime">원하는 버스 배차 시간대</label><br>
+            <input type="time" id="start" name="start">
+            <span>~</span>
+            <input type="time" id="end" name="end">
+        </div>
+        <div>
+            <label for="alarm">알림 시간</label><br>
+            <span>버스 도착</span>
+            <select name="alarm">
+                <option value="5">5</option>
+                <option value="10">10</option>
+                <option value="15">15</option>
+                <option value="20">20</option>
+            </select>
+            <span>분 전</span>
+        </div>
+        <div id="btn-div">
+            <button type="submit">저장</button>
+        </div>
+    </form>
+
+    
+</body>
+</html>
