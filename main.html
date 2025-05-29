@@ -38,10 +38,24 @@
             <span>분 전</span>
         </div>
         <div class="btn-div">
-            <button type="submit">저장</button>
+            <button type="submit" onclick="saveInfo()">저장</button>
         </div>
     </form>
 
-    
+    <script>
+        function saveInfo(){
+            const formData = { // input, select 값 객체로 저장하기
+                stop: document.querySelector("#searchStop").value,
+                bus: document.querySelector("#searchBus").value,
+                timeRange: {
+                    start: document.querySelector("#start").value,
+                    end: document.querySelector("#end").value
+                },
+                alarm: document.querySelector("select[name ='alarm']").value
+            };
+
+            localStorage.setItem("userBusData", JSON.stringify(formData)); // 객체로 저장한 값 localStorage에 저장
+        };
+    </script>
 </body>
 </html>

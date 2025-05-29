@@ -49,10 +49,12 @@ select {
   display: flex;
   align-items: center;
   gap: 10px;
+  width: 100%;
 }
 
 .time-div input[type="time"] {
-  flex: 1;
+  width: 100%;
+  min-width: 0;
 }
 
 input[name="alarm"],
