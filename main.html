@@ -7,55 +7,59 @@
     <link rel="stylesheet" href="main_style.css">
 </head>
 <body>
-    <h2>🚌 버스 알림 설정하기 🚌</h2>
-    
-    <form>
-        <div> 
-            <label for="stop">정류소 검색하기</label><br>
-            <input type="text" id="searchStop" name="stop" placeholder="버스 정류소를 입력하세요">
-        </div>
-        <div>
-            <label for="bus">버스 노선 검색하기</label><br>
-            <input type="text" id="searchBus" name="bus" placeholder="버스 번호를 입력하세요">
-        </div>
-        <div>
-            <label for="busTime">원하는 버스 배차 시간대</label><br>
-            <div class="time-div">
-                <input type="time" id="start" name="start">
-                <span>~</span>
-                <input type="time" id="end" name="end">
+    <h2 id="title">🚌 버스 알림 설정하기 🚌</h2>
+
+    <!-- 1번 버스 검색 및 설정 페이지 -->
+    <div id="page1">
+        <form>
+            <div> 
+                <label for="stop">정류소 검색하기</label><br>
+                <input type="text" id="searchStop" name="stop" placeholder="버스 정류소를 입력하세요">
+                <button type="button" class="search-btn" onclick="searchStop()">검색하기</button>
             </div>
-        </div>
-        <div>
-            <label for="alarm">알림 시간</label><br>
-            <span>버스 도착</span>
-            <select name="alarm">
-                <option value="5">5</option>
-                <option value="10">10</option>
-                <option value="15">15</option>
-                <option value="20">20</option>
-            </select>
-            <span>분 전</span>
-        </div>
-        <div class="btn-div">
-            <button type="submit" onclick="saveInfo()">저장</button>
-        </div>
-    </form>
+            <div>
+                <label for="bus">버스 노선 검색하기</label><br>
+                <input type="text" id="searchBus" name="bus" placeholder="버스 번호를 입력하세요">
+                <button type="button" class="search-btn" onclick="searchBus()">검색하기</button>
+            </div>
+            <div>
+                <label for="busTime">원하는 버스 배차 시간대</label><br>
+                <div class="time-div">
+                    <input type="time" id="start" name="start">
+                    <span>~</span>
+                    <input type="time" id="end" name="end">
+                </div>
+            </div>
+            <div>
+                <label for="alarm">알림 시간</label><br>
+                <span>버스 도착</span>
+                <select name="alarm">
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="15">15</option>
+                    <option value="20">20</option>
+                </select>
+                <span>분 전</span>
+            </div>
+            <div class="btn-div">
+                <button type="submit" class="save-btn" onclick="saveInfo()">저장</button>
+            </div>
+        </form>
+    </div>
 
-    <script>
-        function saveInfo(){
-            const formData = { // input, select 값 객체로 저장하기
-                stop: document.querySelector("#searchStop").value,
-                bus: document.querySelector("#searchBus").value,
-                timeRange: {
-                    start: document.querySelector("#start").value,
-                    end: document.querySelector("#end").value
-                },
-                alarm: document.querySelector("select[name ='alarm']").value
-            };
+    <!-- 2번 설정 확인 및 삭제 페이지 (현재는 안 보이게) -->
+    <div id="page2" style="display: none;">
+        <form>
+            <div id="savedList">저장된 내용이 없습니다.</div>
+        </form>
+    </div>
 
-            localStorage.setItem("userBusData", JSON.stringify(formData)); // 객체로 저장한 값 localStorage에 저장
-        };
-    </script>
+    <div class="pages">
+        <button class="page-btn active" onclick="changePage(1)">1</button>
+        <button class="page-btn" onclick="changePage(2)">2</button>
+    </div>
+    
+    <script src='main_js.js'></script>
+    <script src='connect_api.js'></script>
 </body>
 </html>
