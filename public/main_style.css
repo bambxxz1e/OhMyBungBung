@@ -24,6 +24,12 @@ form {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+/* 저장 목록 form에만 적용할 클래스 */
+.scrollable-form {
+  max-height: 70vh;  /* 화면 높이의 70%까지만 사용 */
+  overflow-y: auto;
+}
+
 div {
   margin-bottom: 20px;
 }
@@ -183,4 +189,110 @@ span {
 
 .alarm-card p {
   margin: 6px 0;
+}
+
+/* 모달 배경: 화면 전체 덮고, 중앙 정렬 */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10000;
+}
+
+/* 모달 콘텐츠 박스 */
+.modal-content {
+    background: white;
+    padding: 20px 30px;
+    border-radius: 8px;
+    width: 600px; /* 너비 확대 */
+    max-width: 90vw;
+    max-height: 90vh;
+    overflow-y: auto;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    z-index: 10001;
+    color: #333;
+    font-size: 16px;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* 내부 콘텐츠 가운데 정렬 */
+}
+
+/* 닫기 버튼 */
+.close-modal {
+    margin-top: 20px;
+    padding: 8px 14px;
+    background-color: #007bff;
+    border: none;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+    align-self: center; /* 가운데 정렬 유지 */
+}
+
+/* 리스트 컨테이너 */
+.route-list, .station-list {
+    max-height: 300px;
+    overflow-y: auto;
+    margin-top: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 10px;
+    width: 100%;
+}
+
+/* 리스트 아이템 */
+.route-item, .station-item {
+    padding: 10px 15px;
+    border-bottom: 1px solid #eee;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+    text-align: center; /* 가운데 정렬 */
+}
+
+.route-item:hover, .station-item:hover {
+    background-color: #f0f8ff;
+}
+
+.route-name, .station-name {
+    font-weight: 600;
+    font-size: 18px;
+    margin-bottom: 4px;
+}
+
+.route-info, .station-id, .station-ars, .route-id {
+    font-size: 13px;
+    color: #666;
+}
+
+/* 커스텀 팝업 스타일 */
+#customPopup {
+    position: fixed;
+    top: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    background: white;
+    padding: 30px 30px 20px 30px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    border-radius: 8px;
+    z-index: 11000;
+    font-size: 16px;
+    color: #333;
+    text-align: center;
+}
+
+#customPopup button {
+    margin-top: 15px;
+    padding: 6px 12px;
+    background-color: #007bff;
+    border: none;
+    color: white;
+    border-radius: 4px;
+    cursor: pointer;
 }

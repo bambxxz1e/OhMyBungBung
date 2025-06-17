@@ -1,16 +1,43 @@
 {
   "name": "ohmybungbung",
   "version": "1.0.0",
-  "main": "test_webhook.js",
+  "description": "서울 버스 알림 서비스를 위한 프록시 서버",
+  "main": "server.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "dev": "nodemon server.js"
   },
-  "keywords": [],
+  "keywords": [
+    "bus",
+    "seoul",
+    "api",
+    "proxy",
+    "cors",
+    "notification"
+  ],
   "author": "",
   "license": "ISC",
-  "description": "",
   "dependencies": {
     "axios": "^1.9.0",
-    "dotenv": "^16.5.0"
+    "cors": "^2.8.5",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "node-fetch": "^3.3.2",
+    "xml-js": "^1.6.11"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bambxxz1e/OhMyBungBung.git"
+  },
+  "bugs": {
+    "url": "https://github.com/bambxxz1e/OhMyBungBung/issues"
+  },
+  "homepage": "https://github.com/bambxxz1e/OhMyBungBung#readme",
+  "engines": {
+    "node": ">=14.0.0"
   }
 }
