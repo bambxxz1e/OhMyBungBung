@@ -1,6 +1,5 @@
 // 사용자 설정 저장
 function saveInfo() {
-    // 입력 값 검증
     if (!selectedStopInfo.name || !selectedStopInfo.id) {
         alert("정류소를 선택해주세요.");
         return;
@@ -12,13 +11,13 @@ function saveInfo() {
 
     const startTime = document.querySelector("#start").value;
     const endTime = document.querySelector("#end").value;
+    const alarmTime = document.querySelector("select[name='alarm']").value;
 
     if (!startTime || !endTime) {
         alert("시간대를 설정해주세요.");
         return;
     }
 
-    // 시간대 유효성 검사 (최대 20분)
     const [startHour, startMin] = startTime.split(":").map(Number);
     const [endHour, endMin] = endTime.split(":").map(Number);
     const startTotal = startHour * 60 + startMin;
@@ -28,16 +27,15 @@ function saveInfo() {
         alert("끝나는 시간은 시작 시간보다 늦어야 합니다.");
         return;
     }
-    if (endTotal - startTotal > 20) {
-        alert("시간대는 최대 20분까지만 설정할 수 있습니다.");
+    if (endTotal - startTotal > 30) {
+        alert("시간대는 최대 30분까지만 설정할 수 있습니다.");
         return;
     }
 
-    // 저장할 데이터 구성
     const formData = {
         stop: selectedStopInfo.name,
         stopId: selectedStopInfo.id,
-        arsId: selectedStopInfo.arsId, // 고유번호도 저장 가능
+        arsId: selectedStopInfo.arsId,
         bus: selectedBusInfo.number,
         busRouteId: selectedBusInfo.routeId,
         routeType: selectedBusInfo.routeType,
@@ -45,15 +43,43 @@ function saveInfo() {
             start: startTime,
             end: endTime,
         },
-        alarm: document.querySelector("select[name='alarm']").value,
+        alarm: alarmTime,
     };
-    
-    // 기존 알림 목록에 추가 저장
+
+    // 중복 방지
     const existing = JSON.parse(localStorage.getItem("userBusDataList") || "[]");
+    const isDuplicate = existing.some(item =>
+        item.stopId === formData.stopId &&
+        item.busRouteId === formData.busRouteId &&
+        item.timeRange.start === formData.timeRange.start &&
+        item.timeRange.end === formData.timeRange.end &&
+        item.alarm === formData.alarm
+    );
+
+    if (isDuplicate) {
+        alert("이미 동일한 알림이 저장되어 있습니다.");
+        return;
+    }
+
     existing.push(formData);
     localStorage.setItem("userBusDataList", JSON.stringify(existing));
-
     alert("🚨알림이 저장되었습니다!");
+
+    // 서버에 최신 목록 전송
+    fetch("http://localhost:3000/api/busAlert", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(existing),
+    })
+    .then(res => res.json())
+    .then(data => console.log("서버 응답:", data))
+    .catch(err => console.error("에러:", err));
+
+    // ⬇️ 저장 후 UI 초기화
+    document.querySelector("#start").value = "";
+    document.querySelector("#end").value = "";
+    selectedStopInfo = {};
+    selectedBusInfo = {};
 }
 
 // 페이지 버튼 클릭 시 내용 변경
@@ -111,7 +137,17 @@ function deleteAlarm(idx) {
         existing.splice(idx, 1);
         localStorage.setItem("userBusDataList", JSON.stringify(existing));
         alert("알림이 삭제되었습니다!");
-        loadSavedList(); // 다시 목록만 불러오기
+        loadSavedList(); // 다시 목록 불러오기
+
+        // 삭제 후 서버에 최신 목록 전송
+        fetch('http://localhost:3000/api/busAlert', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(existing)
+        })
+        .then(res => res.json())
+        .then(data => console.log('서버 응답:', data))
+        .catch(err => console.error('에러:', err));
     } else {
         alert("삭제할 알림을 찾을 수 없습니다.");
     }
