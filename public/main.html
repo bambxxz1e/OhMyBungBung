@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="main_style.css">
 </head>
 <body>
-    <h2 id="title">🚌 버스 알림 설정하기 🚌</h2>
+    <h2 id="title">버스 알림 설정하기</h2>
 
     <!-- 1번 버스 검색 및 설정 페이지 -->
     <div id="page1">
@@ -60,6 +60,21 @@
     </div>
 
     <script>
+        // 서버 실행 했을 때 localStorage 값 전송
+        window.addEventListener("DOMContentLoaded", () => {
+        const saved = localStorage.getItem("userBusDataList");
+        if (saved) {
+            fetch("http://localhost:3000/api/busAlert", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: saved,
+            })
+            .then(res => res.json())
+            .then(data => console.log("초기 데이터 전송됨:", data))
+            .catch(err => console.error("초기 전송 실패:", err));
+        }
+        });
+
         // 전역 변수로 정류소 정보 저장
         const selectedStopInfo = {
             name: '',

@@ -75,7 +75,7 @@ function saveInfo() {
     .then(data => console.log("서버 응답:", data))
     .catch(err => console.error("에러:", err));
 
-    // ⬇️ 저장 후 UI 초기화
+    // 저장 후 입력창 초기화
     document.querySelector("#start").value = "";
     document.querySelector("#end").value = "";
     selectedStopInfo = {};
@@ -99,7 +99,7 @@ function changePage(pageNum) {
 
     // 제목 변경
     const title = document.getElementById("title");
-    title.innerText = pageNum === 1 ? "🚌 버스 알림 설정하기 🚌" : "📋 저장된 버스 알림 보기 📋";
+    title.innerText = pageNum === 1 ? "버스 알림 설정하기" : "저장된 버스 알림 보기";
 
     // 2페이지일 경우 알림 목록 로딩
     if (pageNum === 2) {
